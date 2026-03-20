@@ -34,37 +34,47 @@ app.include_router(shared_groups.router, prefix="/shared-groups", tags=["Shared 
 app.include_router(loans.router, prefix="/loans", tags=["Loans"])
 app.include_router(dashboard.router, prefix="/dashboard", tags=["Dashboard"])
 
-# Scheduler Setup
-scheduler = BackgroundScheduler()
+# ── Scheduler Setup ──
+SCHEDULER_ENABLED = os.getenv("SCHEDULER_ENABLED", "false").lower() == "true"
 
-# Import statements daily at 9 AM
-scheduler.add_job(
-    import_latest_statements,
-    trigger=CronTrigger(hour=9, minute=0),
-    id='import_statements',
-    name='Import Latest Statements',
-    replace_existing=True
-)
+if SCHEDULER_ENABLED:
+    scheduler = BackgroundScheduler()
 
-# Send reminders daily at 8 AM
-scheduler.add_job(
-    send_due_date_reminders,
-    trigger=CronTrigger(hour=8, minute=0),
-    id='send_reminders',
-    name='Send Due Date Reminders',
-    replace_existing=True
-)
+    scheduler.add_job(
+        import_latest_statements,
+        trigger=CronTrigger(hour=9, minute=0),
+        id='import_statements',
+        name='Import Latest Statements',
+        replace_existing=True
+    )
 
-scheduler.start()
-print("✅ Scheduler started — imports at 9 AM, reminders at 8 AM daily")
+    scheduler.add_job(
+        send_due_date_reminders,
+        trigger=CronTrigger(hour=8, minute=0),
+        id='send_reminders',
+        name='Send Due Date Reminders',
+        replace_existing=True
+    )
 
-# shut down scheduler when app stops
-atexit.register(lambda: scheduler.shutdown())
+    scheduler.start()
+    print("✅ Scheduler started — imports at 9 AM, reminders at 8 AM daily")
+    atexit.register(lambda: scheduler.shutdown())
+
+else:
+    print("⏸️ Scheduler disabled — set SCHEDULER_ENABLED=true to enable")
 
 
 @app.get("/")
 def root():
     return {"message": "CardSense API is running 🚀"}
+
+@app.get("/kaithheathcheck")
+def health_check():
+    return {"status": "ok"}
+
+@app.get("/kaithhealthcheck")
+def health_check_alt():
+    return {"status": "ok"}
 
 
 # Scheduler Control Endpoints
