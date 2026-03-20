@@ -113,7 +113,7 @@ def refresh_analytics():
 
     # Trigger dbt Cloud job via API
     response = http_requests.post(
-        f"https://cloud.getdbt.com/api/v2/accounts/"
+        f"https://cv205.us1.dbt.com/api/v2/accounts/"
         f"{dbt_account_id}/jobs/{dbt_job_id}/run/",
         headers={
             "Authorization": f"Token {dbt_token}",
