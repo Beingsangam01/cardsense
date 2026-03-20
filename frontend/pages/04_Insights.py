@@ -7,7 +7,7 @@ from datetime import date, timedelta
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from styles import load_css, fmt, CHART_COLORS
+from styles import fmt, CHART_COLORS
 from services_client import (
     get_spend_trends,
     get_spend_by_category,
@@ -26,8 +26,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-load_css()
 
 CAT_COLORS = {
     "Food":          "#FF9500",

@@ -5,7 +5,7 @@ import calendar
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from styles import load_css, fmt
+from styles import fmt
 from services_client import (
     get_active_loans,
     get_closed_loans,
@@ -24,8 +24,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-load_css()
 
 LOAN_TYPES = ["Personal", "Home", "Car", "Education",
               "Gold", "Business", "Other"]

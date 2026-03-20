@@ -69,10 +69,10 @@ with col1:
         )
 
         payment_date = st.date_input("Payment Date", value=date.today())
-        reference    = st. _input(
+        reference    = st.text_input(
             "UTR / Reference Number", placeholder="Optional"
         )
-        notes        = st. _input(
+        notes        = st.text_input(
             "Notes", placeholder="e.g. Paid via PhonePe"
         )
 

@@ -3,16 +3,12 @@ import sys, os
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from styles import load_css
-
 st.set_page_config(
     page_title="CardSense",
     page_icon="💳",
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-load_css()
 
 st.title("💳 CardSense")
 st.caption("Personal credit card intelligence platform")
