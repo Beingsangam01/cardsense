@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: raw
+    database: postgres
+    schema: public        # Your FastAPI saves data to the public schema
+    tables:
+      - name: cards
+        description: "Master table of all credit cards"
+      - name: statements
+        description: "Monthly credit card statements"
+      - name: transactions
+        description: "Individual transactions from statements"
+      - name: payments
+        description: "Payments logged against statements"
